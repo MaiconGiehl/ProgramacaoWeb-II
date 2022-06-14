@@ -3,7 +3,7 @@
 import './Home.css';
 import { useFormik } from 'formik';
 import { Input } from '@mui/material';
-import { TextField, Button, FormControl } from '@mui/material';
+import { TextField, Button, Grid, Paper } from '@mui/material';
 
 export function Home() {
   // const [temp, setTemp] = useState('');
@@ -21,6 +21,7 @@ export function Home() {
   const formik = useFormik({
     initialValues: {
       email: '',
+      senha: '',
     },
     onSubmit: search
     // onSubmit: values => {
@@ -29,33 +30,72 @@ export function Home() {
   });
 
   const { handleChange, values, handleSubmit } = formik;
-  const { email } = values
+  const { email, senha } = values
 
-  function search (values) {
-    
+  function search(values) {
+
     alert(JSON.stringify(values, null, 2));
 
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-
-      <TextField
-        id="email"
-        name="email"
-        type="email"
-        label="email"
-        onChange={handleChange}
-        value={email}
-      />
-
-      <Button
-        type="submit"
-        variant='contained'
+    <>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          height: '100vh',
+        }}
       >
-        Submit
-      </Button>
-    </form>
+        <Grid item >
+          <form onSubmit={handleSubmit}>
+            <Paper
+              sx={{
+                padding: 3,
+              }}
+            >
+              <Grid
+                container
+                justifyContent="center"
+                spacing={2}
+                direction="column"
+              >
+                <Grid item>
+                  <TextField
+                    id="email"
+                    name="email"
+                    type="email"
+                    label="Email"
+                    onChange={handleChange}
+                    value={email}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="password"
+                    name="senha"
+                    type="password"
+                    label="Senha"
+                    onChange={handleChange}
+                    value={senha}
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          </form>
+        </Grid>
+      </Grid >
+    </>
   );
 }
 
