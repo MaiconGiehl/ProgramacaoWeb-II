@@ -23,7 +23,7 @@ export function Home() {
       email: '',
       senha: '',
     },
-    onSubmit: search
+    onSubmit: login,
     // onSubmit: values => {
     //   alert(JSON.stringify(values, null, 2));
     // },
@@ -32,7 +32,7 @@ export function Home() {
   const { handleChange, values, handleSubmit } = formik;
   const { email, senha } = values
 
-  function search(values) {
+  function login(values) {
 
     alert(JSON.stringify(values, null, 2));
 
