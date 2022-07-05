@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from "react"
 import * as ApiTmbService from '../../services/apiTmdb'
-
+import { MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md'
+import Title from '../../components/atoms/Title'
+import List from '../../components/molecules/List'
 
 function Catalog() {
     const [popularMovies, setPopularMovies] = useState([])
+    const listaRef = useRef()
 
     const imgUrl = 'https://image.tmdb.org/t/p/w300'
 
     useEffect(() => {
-        ApiTmbService.getPopular()
-            .then((response) => setPopularMovies(response.results))
+        ApiTmbService.getPolular()
+            .then((response) => {
+                const movieImgs = response.results.map((result) => {
+                    return imgUrl + result.poster_path
+                })
+                console.log(movieImgs)
+                setPopularMovies(movieImgs)
+            })
     }, [])
+
     return <>
-        <h2>Catalogo</h2>
-        <div className="categoria">
-            <h3 className="categoria-titulo">Populares</h3>
-            <div className="categoria-lista">
-                {
-                    popularMovies.map((popularMovie) => {
-                        return <>
-                            <img src={imgUrl + popularMovie.poster_path} alt={popularMovie.title} />
-                        </>
-                    })
-                }
-            </div>
-        </div>
+        <Title>Catalogo</Title>
+        <List moviesImg={popularMovies} />
     </>
 }
-
-export default Catalog
